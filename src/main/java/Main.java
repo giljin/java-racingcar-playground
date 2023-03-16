@@ -20,10 +20,11 @@ public class Main {
         game.play();
 
         List<Car> winners = game.findWinners();
-        String winnerString = "";
+        StringBuilder winnerString = new StringBuilder();
         for(Car winner : winners){
-            winnerString += winner.getName() + ", ";
+            winnerString.append(winner.getName()).append(", ");
         }
         System.out.println( winnerString.substring(0, winnerString.length()-2) + "가 최종 우승했습니다.");
+
     }
 }
