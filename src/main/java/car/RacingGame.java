@@ -1,7 +1,6 @@
 package car;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RacingGame {
     private final int playCount;
@@ -28,16 +27,22 @@ public class RacingGame {
     }
 
     public List<Car> findWinners() {
-        Comparator<Distance> comparatorByDistance = Comparator.comparing(Distance::hashCode);
-        Distance maxDistance = carList.stream()
-                .map(Car::getDistance)
-                .max(comparatorByDistance)
-                .orElseThrow(NoSuchElementException::new);
+        Distance maxDistance = new Distance(0);
+        for (Car car : carList) {
+            Distance carDistance = car.getDistance();
+            if( maxDistance.compare(carDistance) < 1 ){
+                maxDistance = carDistance;
+            }
+        }
 
+        List<Car> result = new ArrayList<>();
+        for (Car car : carList){
+            if( car.getDistance().equals(maxDistance) ){
+                result.add(car);
+            }
+        }
 
-        return carList.stream()
-                .filter(car -> car.getDistance().equals(maxDistance))
-                .collect(Collectors.toList());
+        return result;
     }
 
     public void play() {

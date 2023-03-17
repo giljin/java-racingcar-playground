@@ -33,7 +33,7 @@ public class Distance {
     }
 
 
-    public int compare(int number) {
-        return Integer.compare(distance, number);
+    public int compare(Distance distanceInstance) {
+        return Integer.compare(this.distance, distanceInstance.distance);
     }
 }
