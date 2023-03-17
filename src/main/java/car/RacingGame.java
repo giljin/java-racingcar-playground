@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class RacingGame {
     private final int playCount;
-    private List<Car> carList = new ArrayList<>();
+    private final List<Car> carList = new ArrayList<>();
 
     public RacingGame(int playCount) {
         if( playCount < 1 ){
@@ -28,13 +28,15 @@ public class RacingGame {
     }
 
     public List<Car> findWinners() {
-        Comparator<Car> comparatorByDistance = Comparator.comparingInt(Car::getDistance);
-        int maxDistance = carList.stream()
+        Comparator<Distance> comparatorByDistance = Comparator.comparing(Distance::hashCode);
+        Distance maxDistance = carList.stream()
+                .map(Car::getDistance)
                 .max(comparatorByDistance)
-                .orElseThrow(NoSuchElementException::new).getDistance();
+                .orElseThrow(NoSuchElementException::new);
+
 
         return carList.stream()
-                .filter(car -> car.getDistance() == maxDistance)
+                .filter(car -> car.getDistance().equals(maxDistance))
                 .collect(Collectors.toList());
     }
 
