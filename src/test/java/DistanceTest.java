@@ -28,7 +28,7 @@ public class DistanceTest {
     @Test
     void compare(){
         Distance distance = new Distance(3);
-        assertThat(distance.compare(2)).isEqualTo(1);
+        assertThat(distance.compare(new Distance(2))).isEqualTo(1);
     }
 
 }
