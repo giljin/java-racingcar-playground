@@ -3,14 +3,11 @@ package car;
 import java.util.*;
 
 public class RacingGame {
-    private final int playCount;
+    private final PlayCount playCount;
     private final List<Car> carList = new ArrayList<>();
 
     public RacingGame(int playCount) {
-        if( playCount < 1 ){
-            throw new IllegalArgumentException("1회이상 작동해야합니다");
-        }
-        this.playCount = playCount;
+        this.playCount = new PlayCount(playCount);
     }
 
     public void join(Car oh) {
@@ -47,7 +44,7 @@ public class RacingGame {
 
     public void play() {
 
-        for (int i = 0; i < playCount; i++) {
+        for (int i = 0; playCount.compare(i) > 0; i++) {
             goAllCar();
         }
     }
